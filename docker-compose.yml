@@ -35,6 +35,8 @@ services:
     networks:
       - traefik_traefik_proxy
       - user_database_network
+      - rabbitmq_network
+      - redis_network
     deploy:
       placement:
         constraints:
@@ -50,6 +52,16 @@ networks:
     external: true
 
   user_database_network:
+    driver: overlay
+    attachable: true
+    external: true
+
+  rabbitmq_network:
+    driver: overlay
+    attachable: true
+    external: true
+
+  redis_network:
     driver: overlay
     attachable: true
     external: true
