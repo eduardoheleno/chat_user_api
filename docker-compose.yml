@@ -11,6 +11,10 @@ services:
       - user_database_pssw
     networks:
       - user_database_network
+    deploy:
+      placement:
+        constraints:
+          - node.role == worker
     # healthcheck:
     #   test: mysqladmin ping -h localhost -u root --password=$$MYSQL_ROOT_PASSWORD
     #   start_period: 5s
@@ -31,6 +35,10 @@ services:
     networks:
       - traefik_traefik_proxy
       - user_database_network
+    deploy:
+      placement:
+        constraints:
+          - node.role == worker
     # depends_on:
     #   user_mysql:
     #     condition: service_healthy
