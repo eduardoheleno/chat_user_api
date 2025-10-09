@@ -38,6 +38,12 @@ services:
       - rabbitmq_network
       - redis_network
     deploy:
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.user-api.entrypoints=web"
+        - "traefik.http.routers.user-api.rule=Host(`eduardodev.app.br`)"
+        - "traefik.http.services.user-api.loadbalancer.server.port=8080"
+
       placement:
         constraints:
           - node.role == worker
