@@ -11,12 +11,12 @@ services:
       - user_database_pssw
     networks:
       - user_database_network
-    healthcheck:
-      test: mysqladmin ping -h localhost -u root --password=$$MYSQL_ROOT_PASSWORD
-      start_period: 5s
-      interval: 5s
-      timeout: 5s
-      retries: 55
+    # healthcheck:
+    #   test: mysqladmin ping -h localhost -u root --password=$$MYSQL_ROOT_PASSWORD
+    #   start_period: 5s
+    #   interval: 5s
+    #   timeout: 5s
+    #   retries: 55
 
   user_api:
     hostname: user_api
@@ -31,9 +31,9 @@ services:
     networks:
       - traefik_traefik_proxy
       - user_database_network
-    depends_on:
-      user_mysql:
-        condition: service_healthy
+    # depends_on:
+    #   user_mysql:
+    #     condition: service_healthy
 
 networks:
   traefik_traefik_proxy:
