@@ -26,11 +26,11 @@ services:
     hostname: user_api
     image: eduardogomesheleno/user_api:latest
     environment:
-      GOOSE_DBSTRING
-      GOOSE_DRIVER: mysql
-      GOOSE_MIGRATION_DIR: /app/database/migrations/
-      GOOSE_TABLE: goose_migrations
-      MYSQL_ROOT_PASSWORD: /run/secrets/user_database_pssw
+      - GOOSE_DBSTRING
+      - GOOSE_DRIVER=mysql
+      - GOOSE_MIGRATION_DIR=/app/database/migrations/
+      - GOOSE_TABLE=goose_migrations
+      - MYSQL_ROOT_PASSWORD=/run/secrets/user_database_pssw
     secrets:
       - user_database_pssw
     networks:
