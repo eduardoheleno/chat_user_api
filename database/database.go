@@ -6,13 +6,13 @@ import (
 
 	"fmt"
 	"log"
-	// "os"
+	"os"
 )
 
 func InitDatabase() *gorm.DB {
-	// dbPssw := os.Getenv("MYSQL_ROOT_PASSWORD")
+	dbPssw := os.Getenv("MYSQL_ROOT_PASSWORD")
 
-	dsn := fmt.Sprintf("root:%s@tcp(user_database:3306)/user_api?charset=utf8&parseTime=true", "123")
+	dsn := fmt.Sprintf("root:%s@tcp(user_database:3306)/user_api?charset=utf8&parseTime=true", dbPssw)
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
 		log.Panicf("Failed to connect to database: %s", err)
