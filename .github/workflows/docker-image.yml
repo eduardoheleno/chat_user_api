@@ -15,14 +15,14 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t eduardogomesheleno/rt_server:latest .
+          docker build -t eduardogomesheleno/user_api:latest .
       - name: Log in to Docker Hub
         run: echo "${{ secrets.DOCKER_TOKEN }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
       - name: Push Docker image
         run: |
-          docker push eduardogomesheleno/rt_server:latest
+          docker push eduardogomesheleno/user_api:latest
 
       - name: Trigger Portainer redeploy webhook
         run: |
-          curl -X POST http://portainer.eduardodev.app.br/api/stacks/webhooks/09415d63-23d8-4689-81a3-fb6b56c0ab86
+          curl -X POST http://portainer.eduardodev.app.br/api/stacks/webhooks/77421fc0-4c35-4365-9efc-a63f4eba4eb5
