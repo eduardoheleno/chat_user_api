@@ -4,11 +4,8 @@ services:
     image: mysql:5
     command: --default-authentication-plugin=mysql_native_password --sql-mode="STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION"
     environment:
-      MYSQL_ROOT_PASSWORD: /run/secrets/user_database_pssw
       MYSQL_DATABASE: user_api
       TZ: America/Sao_Paulo
-    secrets:
-      - user_database_pssw
     networks:
       - user_database_network
     deploy:
@@ -23,9 +20,6 @@ services:
       GOOSE_DRIVER: mysql
       GOOSE_MIGRATION_DIR: /app/database/migrations/
       GOOSE_TABLE: goose_migrations
-      MYSQL_ROOT_PASSWORD: /run/secrets/user_database_pssw
-    secrets:
-      - user_database_pssw
     networks:
       - traefik_traefik_proxy
       - user_database_network
@@ -35,7 +29,7 @@ services:
       labels:
         - "traefik.enable=true"
         - "traefik.http.routers.user-api.entrypoints=web"
-        - "traefik.http.routers.user-api.rule=Host(`eduardodev.app.br`)"
+        - "traefik.http.routers.user-api.rule=Host(`eduardodev.app.br`) && PathPrefix(`/user_api`)"
         - "traefik.http.services.user-api.loadbalancer.server.port=8080"
 
       placement:
@@ -61,8 +55,4 @@ networks:
   redis_network:
     driver: overlay
     attachable: true
-    external: true
-
-secrets:
-  user_database_pssw:
     external: true

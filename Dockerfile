@@ -11,13 +11,9 @@ RUN curl -fsSL \
 COPY . .
 COPY vendor/ ./vendor/
 
-COPY entrypoint.sh /usr/local/bin/entrypoint.sh
-RUN chmod +x /usr/local/bin/entrypoint.sh
-
 RUN go env -w GOFLAGS="-mod=vendor"
 RUN go build -o user_api
 
-ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 CMD ["/app/user_api"]
 
 # CMD air
