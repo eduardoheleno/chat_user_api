@@ -14,7 +14,7 @@ services:
     deploy:
       placement:
         constraints:
-          - node.role == worker
+          - node.hostname == instance2
 
   user_api:
     hostname: user_api
@@ -34,15 +34,13 @@ services:
       labels:
         - "traefik.enable=true"
         - "traefik.http.routers.user-api.entrypoints=web"
-        - "traefik.http.routers.user-api.rule=Host(`eduardodev.app.br`)"
-        - "traefik.swarm.network=traefik_traefik_proxy"
-        # - "traefik.http.middlewares.user-api-strip.stripprefix.prefixes=/user_api"
-        # - "traefik.http.routers.user-api.middlewares=user-api-strip"
+        - "traefik.http.routers.user-api.rule=Host(`eduardodev.app.br`) && PathPrefix(`/user_api`)"
+        - "traefik.http.middlewares.user-api-strip.stripprefix.prefixes=/user_api"
+        - "traefik.http.routers.user-api.middlewares=user-api-strip"
         - "traefik.http.services.user-api.loadbalancer.server.port=8080"
-
       placement:
         constraints:
-          - node.role == worker
+          - node.hostname == instance2
 
 networks:
   traefik_traefik_proxy:
