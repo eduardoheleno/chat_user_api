@@ -35,6 +35,7 @@ services:
         - "traefik.enable=true"
         - "traefik.http.routers.user-api.entrypoints=web"
         - "traefik.http.routers.user-api.rule=Host(`eduardodev.app.br`)"
+        - "traefik.docker.network=traefik_traefik_proxy"
         # - "traefik.http.middlewares.user-api-strip.stripprefix.prefixes=/user_api"
         # - "traefik.http.routers.user-api.middlewares=user-api-strip"
         - "traefik.http.services.user-api.loadbalancer.server.port=8080"
