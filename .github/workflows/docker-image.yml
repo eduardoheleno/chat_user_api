@@ -25,4 +25,4 @@ jobs:
 
       - name: Trigger Portainer redeploy webhook
         run: |
-          curl -X POST http://portainer.eduardodev.app.br/api/stacks/webhooks/0c2f58c8-ae32-40e8-aec2-9a46994e59ad
+          curl -X POST http://portainer.eduardodev.app.br/api/stacks/webhooks/936d931d-1632-45b6-a095-1c25450a100a
