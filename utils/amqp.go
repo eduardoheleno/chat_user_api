@@ -9,12 +9,12 @@ import (
 func NewChannel() *amqp.Channel {
 	conn, err := amqp.Dial("amqp://guest:guest@rabbitmq:5672/")
 	if err != nil {
-		log.Fatalf("Error on dialing amqp %w", err)
+		log.Fatalf("Error on dialing amqp %s", err)
 	}
 
 	ch, err := conn.Channel()
 	if err != nil {
-		log.Fatalf("Error on creating channel %w", err)
+		log.Fatalf("Error on creating channel %s", err)
 	}
 
 	return ch

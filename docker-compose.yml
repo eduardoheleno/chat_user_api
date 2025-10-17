@@ -1,35 +1,18 @@
 services:
-  user_mysql:
-    hostname: user_database
-    image: mysql:5
-    command: --default-authentication-plugin=mysql_native_password --sql-mode="STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION"
-    environment:
-      MYSQL_DATABASE: user_api
-      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/user_database_pswd
-      TZ: America/Sao_Paulo
-    networks:
-      - user_database_network
-    secrets:
-      - user_database_pswd
-    deploy:
-      placement:
-        constraints:
-          - node.hostname == instance2
-
   user_api:
     hostname: user_api
     image: eduardogomesheleno/user_api:latest
     environment:
       GOOSE_MIGRATION_DIR: /app/database/migrations/
       GOOSE_TABLE: goose_migrations
-      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/user_database_pswd
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/chat_database_pswd
     networks:
       - traefik_traefik_proxy
       - user_database_network
       - rabbitmq_network
       - redis_network
     secrets:
-      - user_database_pswd
+      - chat_database_pswd
     deploy:
       labels:
         - "traefik.enable=true"
@@ -50,19 +33,16 @@ networks:
 
   user_database_network:
     driver: overlay
-    attachable: true
     external: true
 
   rabbitmq_network:
     driver: overlay
-    attachable: true
     external: true
 
   redis_network:
     driver: overlay
-    attachable: true
     external: true
 
 secrets:
-  user_database_pswd:
+  chat_database_pswd:
     external: true
